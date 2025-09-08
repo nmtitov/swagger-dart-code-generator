@@ -1,7 +1,10 @@
 # New fork of swagger-code-generator
 
 Because the original version of `swagger-code-generator` is not maintained for many years I decided to make this fork which I will support myself.\
-The main goal of this project will be fixing all known bugs of original project and converting this code to support the latest OpenAPI spec v3.1.0.
+The main goal of this project will be:
+
+1. Fixing all known bugs of original project
+2. Supporting the latest OpenAPI spec v3.1.0.
 
 \
 \
