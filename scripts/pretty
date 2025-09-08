@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Running pretty.sh ..."
+echo ""
+
+dart pub run import_sorter:main -e
+dartfmt_4_spaces --line-length=1024 -w lib/
+
+
