@@ -3,29 +3,29 @@
 Because the original version of `swagger-code-generator` is not maintained for many years I decided to make this fork which I will support myself.
 The main goal of this project will be fixing all known bugs of original project and converting this code to support the latest OpenAPI spec v3.1.0.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 
 # Original documentation:
 
