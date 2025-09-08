@@ -28,7 +28,7 @@ The main goal of this project will be:
 \
 \
 <br>
-# Original documentation:
+# Original README.md:
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/epam-cross-platform-lab/swagger-dart-code-generator/master/assets/lib_full_logo.png" height="100" alt="Swagger dart code generator" />
