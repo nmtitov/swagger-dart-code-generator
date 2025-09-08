@@ -27,7 +27,7 @@ The main goal of this project will be:
 \
 \
 \
-\
+<br>
 # Original documentation:
 
 <p align="center">
