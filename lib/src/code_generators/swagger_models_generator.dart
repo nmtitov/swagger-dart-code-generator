@@ -656,7 +656,7 @@ static $returnType $fromJsonFunction($valueType? value) => $enumNameCamelCase$fr
         final jsonKeyContent = "@JsonKey(name: '${_validatePropertyKey(propertyKey)}'$includeIfNullString${unknownEnumValue.jsonKey}$dateToJsonValue)\n";
         final deprecatedContent = propertySchema.deprecated ? kDeprecatedAnnotation : '';
 
-        if (prop.shouldBeNullable || (options.nullableModels.contains(className) /* && !requiredProperties.contains(propertyKey) */ )) {
+        if (prop.shouldBeNullable || (options.nullableModels.contains(className) /* && !requiredProperties.contains(propertyKey) */)) {
             typeName = typeName.makeNullable();
         }
 
