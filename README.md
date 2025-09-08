@@ -27,10 +27,7 @@ The main goal of this project will be:
 \
 \
 \
-
 \
-
-
 # Original documentation:
 
 <p align="center">
