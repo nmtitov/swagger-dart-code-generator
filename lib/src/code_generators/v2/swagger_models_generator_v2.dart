@@ -5,46 +5,46 @@ import 'package:swagger_dart_code_generator/src/swagger_models/responses/swagger
 import 'package:swagger_dart_code_generator/src/swagger_models/swagger_root.dart';
 
 class SwaggerModelsGeneratorV2 extends SwaggerModelsGenerator {
-  SwaggerModelsGeneratorV2(super.options);
+    SwaggerModelsGeneratorV2(super.options);
 
-  @override
-  String generate({
-    required SwaggerRoot root,
-    required String fileName,
-    required List<EnumModel> allEnums,
-  }) {
-    final definitions = root.definitions;
-    return generateBase(
-      root: root,
-      fileName: fileName,
-      classes: definitions,
-      generateEnumsMethods: true,
-      allEnums: allEnums,
-    );
-  }
+    @override
+    String generate({
+        required SwaggerRoot root,
+        required String fileName,
+        required List<EnumModel> allEnums,
+    }) {
+        final definitions = root.definitions;
+        return generateBase(
+            root: root,
+            fileName: fileName,
+            classes: definitions,
+            generateEnumsMethods: true,
+            allEnums: allEnums,
+        );
+    }
 
-  @override
-  List<String> getAllListEnumNames(SwaggerRoot root) {
-    final results = getEnumsFromRequests(root).map((e) => e.name).toList();
+    @override
+    List<String> getAllListEnumNames(SwaggerRoot root) {
+        final results = getEnumsFromRequests(root).map((e) => e.name).toList();
 
-    final definitions = root.definitions;
+        final definitions = root.definitions;
 
-    definitions.forEach((className, definition) {
-      if (definition.isListEnum) {
-        results.add(getValidatedClassName(className.capitalize));
-        return;
-      }
-    });
+        definitions.forEach((className, definition) {
+            if (definition.isListEnum) {
+                results.add(getValidatedClassName(className.capitalize));
+                return;
+            }
+        });
 
-    final resultsWithPrefix = results.map((element) {
-      return 'enums.$element';
-    }).toList();
+        final resultsWithPrefix = results.map((element) {
+            return 'enums.$element';
+        }).toList();
 
-    return resultsWithPrefix;
-  }
+        return resultsWithPrefix;
+    }
 
-  @override
-  String getExtendsString(SwaggerSchema schema) {
-    return '';
-  }
+    @override
+    String getExtendsString(SwaggerSchema schema) {
+        return '';
+    }
 }

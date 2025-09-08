@@ -3,57 +3,54 @@ import 'package:swagger_dart_code_generator/src/exception_words.dart';
 import 'package:swagger_dart_code_generator/src/extensions/string_extension.dart';
 
 class EnumModel {
-  final String name;
-  final List<String> values;
-  final bool isInteger;
-  final List<String> enumNames;
+    final String name;
+    final List<String> values;
+    final bool isInteger;
+    final List<String> enumNames;
 
-  static const String defaultEnumFieldName = 'value_';
+    static const String defaultEnumFieldName = 'value_';
 
-  const EnumModel({
-    required this.name,
-    required this.values,
-    required this.isInteger,
-    required this.enumNames,
-  });
+    const EnumModel({
+        required this.name,
+        required this.values,
+        required this.isInteger,
+        required this.enumNames,
+    });
 
-  @override
-  String toString() => _getEnumContent();
+    @override
+    String toString() => _getEnumContent();
 
-  static String _normalizeJsonKeyString(String jsonKey) {
-    return jsonKey.replaceAll("\$", "\\\$").replaceAll('\'', '\\\'');
-  }
-
-  String _getEnumContent() {
-    final resultStrings = <String>[];
-
-    final allFieldNames = <String>[];
-
-    for (int i = 0; i < values.length; i++) {
-      final value = values[i];
-
-      var validatedValue = enumNames.isNotEmpty ? enumNames[i] : value;
-
-      validatedValue = getValidatedEnumFieldName(
-        validatedValue,
-        value,
-        isInteger,
-        allFieldNames,
-      );
-
-      allFieldNames
-          .add(validatedValue.substring(0, validatedValue.indexOf('(')));
-
-      if (isInteger) {
-        resultStrings.add(
-            "\t@JsonValue(${_normalizeJsonKeyString(value)})\n\t$validatedValue");
-      } else {
-        resultStrings.add(
-            "\t@JsonValue('${_normalizeJsonKeyString(value)}')\n\t$validatedValue");
-      }
+    static String _normalizeJsonKeyString(String jsonKey) {
+        return jsonKey.replaceAll("\$", "\\\$").replaceAll('\'', '\\\'');
     }
 
-    return '''
+    String _getEnumContent() {
+        final resultStrings = <String>[];
+
+        final allFieldNames = <String>[];
+
+        for (int i = 0; i < values.length; i++) {
+            final value = values[i];
+
+            var validatedValue = enumNames.isNotEmpty ? enumNames[i] : value;
+
+            validatedValue = getValidatedEnumFieldName(
+                validatedValue,
+                value,
+                isInteger,
+                allFieldNames,
+            );
+
+            allFieldNames.add(validatedValue.substring(0, validatedValue.indexOf('(')));
+
+            if (isInteger) {
+                resultStrings.add("\t@JsonValue(${_normalizeJsonKeyString(value)})\n\t$validatedValue");
+            } else {
+                resultStrings.add("\t@JsonValue('${_normalizeJsonKeyString(value)}')\n\t$validatedValue");
+            }
+        }
+
+        return '''
 enum $name {
 @JsonValue(null)
 swaggerGeneratedUnknown(null),
@@ -64,54 +61,47 @@ final ${isInteger ? 'int' : 'String'}? value;
 
 const $name(this.value);
 }''';
-  }
-
-  static String getValidatedEnumFieldName(
-    String fieldName,
-    String fieldValue,
-    bool isInteger,
-    List<String> allFieldNames,
-  ) {
-    if (fieldName.isEmpty) {
-      fieldName = 'null';
     }
 
-    var result = fieldName
-        .replaceAll(RegExp(r'[^\w|\_|)]'), '_')
-        .split('_')
-        .where((element) => element.isNotEmpty)
-        .map((String word) => word.toLowerCase().capitalize)
-        .join();
+    static String getValidatedEnumFieldName(
+        String fieldName,
+        String fieldValue,
+        bool isInteger,
+        List<String> allFieldNames,
+    ) {
+        if (fieldName.isEmpty) {
+            fieldName = 'null';
+        }
 
-    if (result.startsWith(RegExp('[0-9]+'))) {
-      result = defaultEnumFieldName + result;
+        var result = fieldName.replaceAll(RegExp(r'[^\w|\_|)]'), '_').split('_').where((element) => element.isNotEmpty).map((String word) => word.toLowerCase().capitalize).join();
+
+        if (result.startsWith(RegExp('[0-9]+'))) {
+            result = defaultEnumFieldName + result;
+        }
+
+        result = result.lower;
+
+        if (exceptionWords.contains(result)) {
+            result = '\$$result';
+        }
+
+        if (result.isEmpty) {
+            result = 'undefined';
+        }
+
+        while (allFieldNames.contains(result.lower)) {
+            result = '\$$result';
+        }
+
+        return '$result(${isInteger ? fieldValue : '\'${_normalizeJsonKeyString(fieldValue)}\''})';
     }
 
-    result = result.lower;
+    String generateFromJsonToJson([bool caseSensitive = true]) {
+        final type = isInteger ? 'int' : 'String';
 
-    if (exceptionWords.contains(result)) {
-      result = '\$$result';
-    }
+        String enumParse(bool nullCheck) => caseSensitive ? 'return enums.$name.values.firstWhereOrNull((e) => e.value == ${name.camelCase}) ?? defaultValue' : 'return enums.$name.values.firstWhereOrNull((e) => e.value.toString().toLowerCase() == ${name.camelCase}${nullCheck ? '?' : ''}.toString().toLowerCase()) ?? defaultValue';
 
-    if (result.isEmpty) {
-      result = 'undefined';
-    }
-
-    while (allFieldNames.contains(result.lower)) {
-      result = '\$$result';
-    }
-
-    return '$result(${isInteger ? fieldValue : '\'${_normalizeJsonKeyString(fieldValue)}\''})';
-  }
-
-  String generateFromJsonToJson([bool caseSensitive = true]) {
-    final type = isInteger ? 'int' : 'String';
-
-    String enumParse(bool nullCheck) => caseSensitive
-        ? 'return enums.$name.values.firstWhereOrNull((e) => e.value == ${name.camelCase}) ?? defaultValue'
-        : 'return enums.$name.values.firstWhereOrNull((e) => e.value.toString().toLowerCase() == ${name.camelCase}${nullCheck ? '?' : ''}.toString().toLowerCase()) ?? defaultValue';
-
-    return '''
+        return '''
 $type? ${name.camelCase}NullableToJson(enums.$name? ${name.camelCase}) {
   return ${name.camelCase}?.value;
 }
@@ -187,5 +177,5 @@ List<enums.$name>? ${name.camelCase}NullableListFromJson(
       .toList();
 }
     ''';
-  }
+    }
 }

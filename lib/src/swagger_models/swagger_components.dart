@@ -7,61 +7,59 @@ part 'swagger_components.g.dart';
 
 @JsonSerializable()
 class SwaggerComponents {
-  SwaggerComponents({
-    required this.parameters,
-    required this.schemas,
-    required this.responses,
-    required this.requestBodies,
-  });
+    SwaggerComponents({
+        required this.parameters,
+        required this.schemas,
+        required this.responses,
+        required this.requestBodies,
+    });
 
-  @JsonKey(name: 'parameters', defaultValue: {})
-  Map<String, SwaggerRequestParameter> parameters;
+    @JsonKey(name: 'parameters', defaultValue: {})
+    Map<String, SwaggerRequestParameter> parameters;
 
-  @JsonKey(name: 'schemas', defaultValue: {})
-  Map<String, SwaggerSchema> schemas;
+    @JsonKey(name: 'schemas', defaultValue: {})
+    Map<String, SwaggerSchema> schemas;
 
-  @JsonKey(name: 'responses', fromJson: _mapResponses)
-  Map<String, SwaggerSchema> responses;
+    @JsonKey(name: 'responses', fromJson: _mapResponses)
+    Map<String, SwaggerSchema> responses;
 
-  @JsonKey(name: 'requestBodies', fromJson: _mapResponses)
-  Map<String, SwaggerSchema> requestBodies;
+    @JsonKey(name: 'requestBodies', fromJson: _mapResponses)
+    Map<String, SwaggerSchema> requestBodies;
 
-  Map<String, dynamic> toJson() => _$SwaggerComponentsToJson(this);
+    Map<String, dynamic> toJson() => _$SwaggerComponentsToJson(this);
 
-  factory SwaggerComponents.fromJson(Map<String, dynamic> json) =>
-      _$SwaggerComponentsFromJson(json);
+    factory SwaggerComponents.fromJson(Map<String, dynamic> json) => _$SwaggerComponentsFromJson(json);
 }
 
 Map<String, SwaggerSchema> _mapResponses(Map<String, dynamic>? json) {
-  var results = <String, SwaggerSchema>{};
+    var results = <String, SwaggerSchema>{};
 
-  if (json == null) {
+    if (json == null) {
+        return results;
+    }
+
+    json.forEach((key, value) {
+        final map = value as Map<String, dynamic>? ?? {};
+        if (kBasicTypes.contains(value?['type'])) {
+            results[key] = SwaggerSchema(
+                type: value!['type'].toString(),
+            );
+        }
+
+        final content = map['content'] as Map<String, dynamic>?;
+
+        Map<String, dynamic>? appJson;
+
+        if (content?.length == 1) {
+            appJson = content?.values.first as Map<String, dynamic>?;
+        } else {
+            appJson = content?['application/json'] as Map<String, dynamic>?;
+        }
+
+        if (appJson != null && appJson['schema'] != null) {
+            results[key] = SwaggerSchema.fromJson(appJson['schema'] as Map<String, dynamic>);
+        }
+    });
+
     return results;
-  }
-
-  json.forEach((key, value) {
-    final map = value as Map<String, dynamic>? ?? {};
-    if (kBasicTypes.contains(value?['type'])) {
-      results[key] = SwaggerSchema(
-        type: value!['type'].toString(),
-      );
-    }
-
-    final content = map['content'] as Map<String, dynamic>?;
-
-    Map<String, dynamic>? appJson;
-
-    if (content?.length == 1) {
-      appJson = content?.values.first as Map<String, dynamic>?;
-    } else {
-      appJson = content?['application/json'] as Map<String, dynamic>?;
-    }
-
-    if (appJson != null && appJson['schema'] != null) {
-      results[key] =
-          SwaggerSchema.fromJson(appJson['schema'] as Map<String, dynamic>);
-    }
-  });
-
-  return results;
 }

@@ -7,66 +7,65 @@ part 'swagger_request_parameter.g.dart';
 
 @JsonSerializable()
 class SwaggerRequestParameter {
-  SwaggerRequestParameter({
-    this.inParameter = '',
-    this.name = '',
-    this.description = '',
-    this.isRequired = false,
-    this.type = '',
-    this.item,
-    this.collectionFormat = '',
-    this.items,
-    this.schema,
-    this.ref = '',
-    this.key = '',
-    this.enumValuesObj = const [],
-    this.format,
-  });
+    SwaggerRequestParameter({
+        this.inParameter = '',
+        this.name = '',
+        this.description = '',
+        this.isRequired = false,
+        this.type = '',
+        this.item,
+        this.collectionFormat = '',
+        this.items,
+        this.schema,
+        this.ref = '',
+        this.key = '',
+        this.enumValuesObj = const [],
+        this.format,
+    });
 
-  @JsonKey(name: 'in')
-  String inParameter;
+    @JsonKey(name: 'in')
+    String inParameter;
 
-  @JsonKey(name: 'format')
-  String? format;
+    @JsonKey(name: 'format')
+    String? format;
 
-  @JsonKey(name: 'name')
-  String name;
+    @JsonKey(name: 'name')
+    String name;
 
-  @JsonKey(name: 'description')
-  String description;
+    @JsonKey(name: 'description')
+    String description;
 
-  @JsonKey(name: 'required')
-  bool isRequired;
+    @JsonKey(name: 'required')
+    bool isRequired;
 
-  @JsonKey(name: '\$ref')
-  String ref;
+    @JsonKey(name: '\$ref')
+    String ref;
 
-  @JsonKey(name: 'type')
-  String type;
+    @JsonKey(name: 'type')
+    String type;
 
-  @JsonKey(name: 'item')
-  ParameterItem? item;
+    @JsonKey(name: 'item')
+    ParameterItem? item;
 
-  @JsonKey(name: 'enum')
-  List<Object?> enumValuesObj;
+    @JsonKey(name: 'enum')
+    List<Object?> enumValuesObj;
 
-  List<String> get enumValues {
-    return enumValuesObj.map((e) => e.toString()).toList();
-  }
+    List<String> get enumValues {
+        return enumValuesObj.map((e) => e.toString()).toList();
+    }
 
-  @JsonKey(name: 'collectionFormat')
-  String collectionFormat;
+    @JsonKey(name: 'collectionFormat')
+    String collectionFormat;
 
-  @JsonKey(name: 'schema')
-  SwaggerSchema? schema;
+    @JsonKey(name: 'schema')
+    SwaggerSchema? schema;
 
-  @JsonKey(name: 'items')
-  SwaggerRequestItems? items;
+    @JsonKey(name: 'items')
+    SwaggerRequestItems? items;
 
-  String key;
+    String key;
 
-  Map<String, dynamic> toJson() => _$SwaggerRequestParameterToJson(this);
+    Map<String, dynamic> toJson() => _$SwaggerRequestParameterToJson(this);
 
-  factory SwaggerRequestParameter.fromJson(Map<String, dynamic> json) =>
-      _$SwaggerRequestParameterFromJson(json);
+    factory SwaggerRequestParameter.fromJson(Map<String, dynamic> json) => _$SwaggerRequestParameterFromJson(json);
 }

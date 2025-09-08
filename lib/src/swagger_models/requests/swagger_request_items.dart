@@ -4,25 +4,24 @@ part 'swagger_request_items.g.dart';
 
 @JsonSerializable()
 class SwaggerRequestItems {
-  SwaggerRequestItems({
-    required this.type,
-    required this.enumValues,
-    required this.ref,
-  });
+    SwaggerRequestItems({
+        required this.type,
+        required this.enumValues,
+        required this.ref,
+    });
 
-  @JsonKey(name: 'type', defaultValue: '')
-  String type;
+    @JsonKey(name: 'type', defaultValue: '')
+    String type;
 
-  @JsonKey(name: 'enum', defaultValue: [])
-  List<String> enumValues;
+    @JsonKey(name: 'enum', defaultValue: [])
+    List<String> enumValues;
 
-  @JsonKey(name: '\$ref', defaultValue: '')
-  String ref;
+    @JsonKey(name: '\$ref', defaultValue: '')
+    String ref;
 
-  bool get hasRef => ref.isNotEmpty;
+    bool get hasRef => ref.isNotEmpty;
 
-  Map<String, dynamic> toJson() => _$SwaggerRequestItemsToJson(this);
+    Map<String, dynamic> toJson() => _$SwaggerRequestItemsToJson(this);
 
-  factory SwaggerRequestItems.fromJson(Map<String, dynamic> json) =>
-      _$SwaggerRequestItemsFromJson(json);
+    factory SwaggerRequestItems.fromJson(Map<String, dynamic> json) => _$SwaggerRequestItemsFromJson(json);
 }

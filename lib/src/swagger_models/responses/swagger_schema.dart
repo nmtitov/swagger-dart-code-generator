@@ -5,177 +5,166 @@ part 'swagger_schema.g.dart';
 
 @JsonSerializable()
 class SwaggerSchema {
-  SwaggerSchema({
-    dynamic type = '',
-    this.originalRef = '',
-    this.enumValuesObj = const [],
-    this.properties = const {},
-    this.items,
-    this.ref = '',
-    this.defaultValue,
-    this.format = '',
-    this.schema,
-    this.oneOf = const [],
-    this.anyOf = const [],
-    this.allOf = const [],
-    this.required = const [],
-    this.description = '',
-    this.enumNames,
-    this.isNullable,
-    this.hasAdditionalProperties = false,
-    this.msEnum,
-    this.title = '',
-    this.readOnly = false,
-    this.writeOnly = false,
-    this.deprecated = false,
-  }) : _type = type;
+    SwaggerSchema({
+        dynamic type = '',
+        this.originalRef = '',
+        this.enumValuesObj = const [],
+        this.properties = const {},
+        this.items,
+        this.ref = '',
+        this.defaultValue,
+        this.format = '',
+        this.schema,
+        this.oneOf = const [],
+        this.anyOf = const [],
+        this.allOf = const [],
+        this.required = const [],
+        this.description = '',
+        this.enumNames,
+        this.isNullable,
+        this.hasAdditionalProperties = false,
+        this.msEnum,
+        this.title = '',
+        this.readOnly = false,
+        this.writeOnly = false,
+        this.deprecated = false,
+    }) : _type = type;
 
-  @JsonKey(name: 'readOnly')
-  bool readOnly;
+    @JsonKey(name: 'readOnly')
+    bool readOnly;
 
-  @JsonKey(name: 'writeOnly')
-  bool writeOnly;
+    @JsonKey(name: 'writeOnly')
+    bool writeOnly;
 
-  @JsonKey(name: 'type')
-  dynamic _type;
-  String get type {
-    if (_type is String?) return _type as String? ?? '';
-    if (_type is List) {
-      for (final types in _type as List) {
-        if ((types as String?) != 'null') return types ?? '';
-      }
+    @JsonKey(name: 'type')
+    dynamic _type;
+    String get type {
+        if (_type is String?) return _type as String? ?? '';
+        if (_type is List) {
+            for (final types in _type as List) {
+                if ((types as String?) != 'null') return types ?? '';
+            }
+        }
+        return '';
     }
-    return '';
-  }
 
-  set type(dynamic value) {
-    _type = value;
-  }
+    set type(dynamic value) {
+        _type = value;
+    }
 
-  @JsonKey(name: 'deprecated')
-  bool deprecated;
+    @JsonKey(name: 'deprecated')
+    bool deprecated;
 
-  @JsonKey(name: 'title')
-  String title;
+    @JsonKey(name: 'title')
+    String title;
 
-  @JsonKey(name: 'format')
-  String format;
+    @JsonKey(name: 'format')
+    String format;
 
-  @JsonKey(name: 'default')
-  Object? defaultValue;
+    @JsonKey(name: 'default')
+    Object? defaultValue;
 
-  @JsonKey(name: 'originalRef')
-  String originalRef;
+    @JsonKey(name: 'originalRef')
+    String originalRef;
 
-  bool get hasOriginalRef => originalRef.isNotEmpty;
+    bool get hasOriginalRef => originalRef.isNotEmpty;
 
-  @JsonKey(name: '\$ref')
-  String ref;
+    @JsonKey(name: '\$ref')
+    String ref;
 
-  bool get hasRef => ref.isNotEmpty;
+    bool get hasRef => ref.isNotEmpty;
 
-  @JsonKey(name: 'description')
-  String description;
+    @JsonKey(name: 'description')
+    String description;
 
-  @JsonKey(name: 'enum')
-  List<Object?> enumValuesObj;
+    @JsonKey(name: 'enum')
+    List<Object?> enumValuesObj;
 
-  @JsonKey(name: 'x-ms-enum')
-  MsEnum? msEnum;
+    @JsonKey(name: 'x-ms-enum')
+    MsEnum? msEnum;
 
-  List<String> get enumValues {
-    final values = (msEnum?.values.isNotEmpty == true
-        ? msEnum?.values.map((e) => e.value)
-        : enumValuesObj) ??
-        [];
+    List<String> get enumValues {
+        final values = (msEnum?.values.isNotEmpty == true ? msEnum?.values.map((e) => e.value) : enumValuesObj) ?? [];
 
-    return values.map((e) => e.toString()).toList();
-  }
+        return values.map((e) => e.toString()).toList();
+    }
 
-  bool get isEnum => enumValuesObj.isNotEmpty;
+    bool get isEnum => enumValuesObj.isNotEmpty;
 
-  bool get isListEnum => type == 'array' && items != null && items!.isEnum;
+    bool get isListEnum => type == 'array' && items != null && items!.isEnum;
 
-  @JsonKey(name: 'required', fromJson: _requiredFromJson)
-  List<String> required;
+    @JsonKey(name: 'required', fromJson: _requiredFromJson)
+    List<String> required;
 
-  @JsonKey(name: 'items')
-  SwaggerSchema? items;
+    @JsonKey(name: 'items')
+    SwaggerSchema? items;
 
-  @JsonKey(name: 'properties')
-  Map<String, SwaggerSchema> properties;
+    @JsonKey(name: 'properties')
+    Map<String, SwaggerSchema> properties;
 
-  @JsonKey(name: 'nullable')
-  bool? isNullable;
+    @JsonKey(name: 'nullable')
+    bool? isNullable;
 
-  bool get shouldBeNullable =>
-      isNullable == true ||
-          readOnly ||
-          writeOnly ||
-          (_type is List && (_type as List).contains('null'));
+    bool get shouldBeNullable => isNullable == true || readOnly || writeOnly || (_type is List && (_type as List).contains('null'));
 
-  @JsonKey(name: 'schema')
-  SwaggerSchema? schema;
+    @JsonKey(name: 'schema')
+    SwaggerSchema? schema;
 
-  List<SwaggerSchema> oneOf;
+    List<SwaggerSchema> oneOf;
 
-  @JsonKey(name: 'anyOf')
-  List<SwaggerSchema> anyOf;
+    @JsonKey(name: 'anyOf')
+    List<SwaggerSchema> anyOf;
 
-  @JsonKey(name: 'allOf')
-  List<SwaggerSchema> allOf;
+    @JsonKey(name: 'allOf')
+    List<SwaggerSchema> allOf;
 
-  @JsonKey(name: 'additionalProperties', fromJson: _additionalsFromJson)
-  bool hasAdditionalProperties;
+    @JsonKey(name: 'additionalProperties', fromJson: _additionalsFromJson)
+    bool hasAdditionalProperties;
 
-  List<String>? enumNames;
+    List<String>? enumNames;
 
-  factory SwaggerSchema.fromJson(Map<String, dynamic> json) =>
-      _$SwaggerSchemaFromJson(json)
-        ..enumNames = ((json[kEnumNames] ?? json[kEnumVarnames]) as List?)
-            ?.map((e) => e as String)
-            .toList()
+    factory SwaggerSchema.fromJson(Map<String, dynamic> json) => _$SwaggerSchemaFromJson(json)
+        ..enumNames = ((json[kEnumNames] ?? json[kEnumVarnames]) as List?)?.map((e) => e as String).toList()
         ..isNullable = (json[kIsNullable] ?? json[kNullable] ?? false) as bool;
 
-  Map<String, dynamic> toJson() => {
-    ..._$SwaggerSchemaToJson(this),
-    if (enumNames != null) kEnumNames: enumNames,
-  };
+    Map<String, dynamic> toJson() => {
+            ..._$SwaggerSchemaToJson(this),
+            if (enumNames != null) kEnumNames: enumNames,
+        };
 }
 
 bool _additionalsFromJson(dynamic value) => value != false;
 
 List<String> _requiredFromJson(dynamic value) {
-  if (value is List) {
-    return value.map((e) => e as String).toList();
-  }
+    if (value is List) {
+        return value.map((e) => e as String).toList();
+    }
 
-  return [];
+    return [];
 }
 
 @JsonSerializable()
 class MsEnum {
-  @JsonKey(name: 'values')
-  final List<MsEnumValue> values;
+    @JsonKey(name: 'values')
+    final List<MsEnumValue> values;
 
-  const MsEnum({
-    this.values = const [],
-  });
+    const MsEnum({
+        this.values = const [],
+    });
 
-  Map<String, dynamic> toJson() => _$MsEnumToJson(this);
+    Map<String, dynamic> toJson() => _$MsEnumToJson(this);
 
-  factory MsEnum.fromJson(Map<String, dynamic> json) => _$MsEnumFromJson(json);
+    factory MsEnum.fromJson(Map<String, dynamic> json) => _$MsEnumFromJson(json);
 }
 
 @JsonSerializable()
 class MsEnumValue {
-  @JsonKey(name: 'value')
-  final Object? value;
+    @JsonKey(name: 'value')
+    final Object? value;
 
-  const MsEnumValue({this.value = const []});
+    const MsEnumValue({this.value = const []});
 
-  Map<String, dynamic> toJson() => _$MsEnumValueToJson(this);
+    Map<String, dynamic> toJson() => _$MsEnumValueToJson(this);
 
-  factory MsEnumValue.fromJson(Map<String, dynamic> json) =>
-      _$MsEnumValueFromJson(json);
+    factory MsEnumValue.fromJson(Map<String, dynamic> json) => _$MsEnumValueFromJson(json);
 }

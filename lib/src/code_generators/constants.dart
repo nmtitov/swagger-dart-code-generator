@@ -1,31 +1,31 @@
 const List<String> kKeyClasses = [
-  'Response',
-  'Request',
-  'Type',
-  'Query',
-  'Body',
-  'Method',
-  'Uri',
-  'List',
+    'Response',
+    'Request',
+    'Type',
+    'Query',
+    'Body',
+    'Method',
+    'Uri',
+    'List',
 ];
 
 const kBasicTypes = [
-  'string',
-  'int',
-  'integer',
-  'double',
-  'float',
-  'bool',
-  'boolean',
-  'num',
-  'Object',
-  'String',
-  kMap,
+    'string',
+    'int',
+    'integer',
+    'double',
+    'float',
+    'bool',
+    'boolean',
+    'num',
+    'Object',
+    'String',
+    kMap,
 ];
 
 const kBasicSwaggerTypes = [
-  ...kBasicTypes,
-  'number',
+    ...kBasicTypes,
+    'number',
 ];
 
 const kMap = 'Map';
@@ -65,17 +65,17 @@ const kAdditionalProperties = 'additionalProperties';
 const successDescriptions = ['Success', 'OK', 'default response'];
 
 const kBasicTypesMap = <String, String>{
-  'integer': 'int',
-  'int': 'int',
-  'int32': 'int',
-  'int64': 'num',
-  'boolean': 'bool',
-  'bool': 'bool',
-  'string': 'String',
-  'file': 'List<int>',
-  'number': 'num',
-  'object': 'Object',
-  'num': 'num',
+    'integer': 'int',
+    'int': 'int',
+    'int32': 'int',
+    'int64': 'num',
+    'boolean': 'bool',
+    'bool': 'bool',
+    'string': 'String',
+    'file': 'List<int>',
+    'number': 'num',
+    'object': 'Object',
+    'num': 'num',
 };
 
 const kObject = 'object';

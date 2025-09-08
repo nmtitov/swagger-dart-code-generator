@@ -7,19 +7,18 @@ part 'swagger_path.g.dart';
 
 @JsonSerializable()
 class SwaggerPath {
-  SwaggerPath({
-    this.requests = const {},
-    this.parameters = const [],
-  });
+    SwaggerPath({
+        this.requests = const {},
+        this.parameters = const [],
+    });
 
-  @JsonKey(name: 'requests')
-  Map<String, SwaggerRequest> requests;
+    @JsonKey(name: 'requests')
+    Map<String, SwaggerRequest> requests;
 
-  @JsonKey(name: 'parameters')
-  List<SwaggerRequestParameter> parameters;
+    @JsonKey(name: 'parameters')
+    List<SwaggerRequestParameter> parameters;
 
-  Map<String, dynamic> toJson() => _$SwaggerPathToJson(this);
+    Map<String, dynamic> toJson() => _$SwaggerPathToJson(this);
 
-  factory SwaggerPath.fromJson(Map<String, dynamic> json) =>
-      _$SwaggerPathFromJson(json);
+    factory SwaggerPath.fromJson(Map<String, dynamic> json) => _$SwaggerPathFromJson(json);
 }

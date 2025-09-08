@@ -4,26 +4,21 @@ part 'swagger_info.g.dart';
 
 @JsonSerializable()
 class SwaggerInfo {
-  SwaggerInfo(
-      {this.description = '',
-      this.version = '',
-      this.title = '',
-      this.termsOfService = ''});
+    SwaggerInfo({this.description = '', this.version = '', this.title = '', this.termsOfService = ''});
 
-  factory SwaggerInfo.fromJson(Map<String, dynamic> json) =>
-      _$SwaggerInfoFromJson(json);
+    factory SwaggerInfo.fromJson(Map<String, dynamic> json) => _$SwaggerInfoFromJson(json);
 
-  @JsonKey(name: 'description')
-  String description;
+    @JsonKey(name: 'description')
+    String description;
 
-  @JsonKey(name: 'version')
-  String version;
+    @JsonKey(name: 'version')
+    String version;
 
-  @JsonKey(name: 'title')
-  String title;
+    @JsonKey(name: 'title')
+    String title;
 
-  @JsonKey(name: 'termsOfService')
-  String termsOfService;
+    @JsonKey(name: 'termsOfService')
+    String termsOfService;
 
-  Map<String, dynamic> toJson() => _$SwaggerInfoToJson(this);
+    Map<String, dynamic> toJson() => _$SwaggerInfoToJson(this);
 }
