@@ -1,3 +1,10 @@
+# New fork of swagger-code-generator
+
+Because the original version of `swagger-code-generator` is not maintained for many years I decided to make this fork which I will support myself.
+The main goal of this project will be fixing all known bugs of original project and converting this code to support the latest OpenAPI spec v3.1.0.
+
+# Original documentation:
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/epam-cross-platform-lab/swagger-dart-code-generator/master/assets/lib_full_logo.png" height="100" alt="Swagger dart code generator" />
 </p>
